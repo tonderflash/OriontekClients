@@ -7,7 +7,6 @@ import { ClientsComponent } from './clients/clients.component';
 import { AddressModalComponent } from './address-modal/address-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

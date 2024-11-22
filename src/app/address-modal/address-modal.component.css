@@ -1,23 +1,48 @@
-.address-list {
+/* General container for the form */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Adds uniform spacing between form fields */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  /* Individual form fields */
+  .form-field mat-form-field {
+    width: 100%; /* Ensure fields take full width */
+  }
+  
+  /* Actions at the bottom of the modal */
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px; /* Adds space between Cancel and Save buttons */
+    margin-top: 20px;
+  }
+  
+  /* Address list styles */
+  .address-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 300px; /* Scroll interno si hay muchas direcciones */
+    max-height: 300px; /* Scroll when addresses overflow */
     overflow-y: auto;
   }
   
   .address-item {
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 10px;
     background-color: #f9f9f9;
-    border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
   .address-item:hover {
     background-color: #eaeaea;
   }
   
+  /* Label and text for address display */
   .address-label {
     font-weight: bold;
     font-size: 0.85rem;
@@ -27,4 +52,32 @@
   .address-text {
     font-size: 0.9rem;
     color: #333;
+  }
+  
+  /* Buttons for modal actions */
+  button[mat-button] {
+    color: #757575;
+  }
+  
+  button[mat-raised-button] {
+    color: #fff;
+    background-color: #1976d2;
+  }
+  
+  button[mat-raised-button]:hover {
+    background-color: #125699;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .form-container {
+      padding: 15px;
+      gap: 15px;
+    }
+  
+    .modal-actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
   }
