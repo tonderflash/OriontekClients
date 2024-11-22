@@ -1,7 +1,10 @@
 <div class="container">
     <h2>Clients Manager</h2>
+  
+    <!-- Add Client Button -->
     <button class="add-client-btn" (click)="addRandomClient()">Add Random Client</button>
-
+  
+    <!-- Clients Table -->
     <table class="clients-table">
       <thead>
         <tr>
@@ -13,18 +16,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let client of clients">
+        <tr *ngFor="let client of displayedClients">
           <td>{{ client.name }}</td>
           <td>{{ client.email }}</td>
           <td>{{ client.phone }}</td>
           <td>
-            <div class="address-container" (click)="openAddressModal(client)">
+            <div class="address-container">
               <ul class="address-list">
                 <li *ngFor="let address of client.addresses" class="address-item">
                   <span class="address-label">Address:</span>
                   <span class="address-text">
-                    {{ address.street }}, {{ address.city }}, {{ address.state }}
-                    {{ address.zip }}
+                    {{ address.street }}, {{ address.city }}, {{ address.state }} {{ address.zip }}
                   </span>
                 </li>
               </ul>
@@ -43,4 +45,13 @@
         </tr>
       </tbody>
     </table>
+  
+    <!-- Angular Material Paginator -->
+    <mat-paginator
+      [length]="totalClients"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)"
+    >
+    </mat-paginator>
   </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { ClientService } from '../services/client.service';
 import { Address, Client } from 'src/models/client.model';
 import { AddressModalComponent } from '../address-modal/address-modal.component';
@@ -10,7 +11,11 @@ import { AddressModalComponent } from '../address-modal/address-modal.component'
   styleUrls: ['./clients.component.css'],
 })
 export class ClientsComponent implements OnInit {
-  clients: Client[] = [];
+  clients: Client[] = []; 
+  displayedClients: Client[] = [];
+  pageSize = 5;
+  currentPage = 0;
+  totalClients = 0; 
 
   constructor(
     private clientService: ClientService,
@@ -18,11 +23,26 @@ export class ClientsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Obtener la lista inicial de clientes con un estado de expansión agregado
     this.clientService.getClients().subscribe((data) => {
-      this.clients = data.map(client => ({ ...client, expanded: false })); // Agregar `expanded` como false por defecto
+      this.clients = data.map(client => ({ ...client, expanded: false })); 
+      this.totalClients = this.clients.length;
+      this.updateDisplayedClients();
     });
   }
+
+  updateDisplayedClients(): void {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.displayedClients = this.clients.slice(startIndex, endIndex);
+  }
+
+  // Handles page changes from the paginator
+  onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updateDisplayedClients();
+  }
+
 
   /**
    * Alterna el estado de expansión de las direcciones del cliente.
@@ -61,13 +81,16 @@ export class ClientsComponent implements OnInit {
   }
 
   addRandomClient(): void {
-    this.clientService.generateRandomClient();
-    // Refresh the client list
+    this.clientService.generateRandomClient(); // Add a random client to the service
+  
+    // Refresh the client list and update pagination
     this.clientService.getClients().subscribe((data) => {
       this.clients = data;
+      this.totalClients = data.length; // Update the total number of clients
+      this.updateDisplayedClients(); // Refresh the paginated displayed clients
     });
   }
-  
+
   addAddress(client: Client): void {
     const dialogRef = this.dialog.open(AddressModalComponent, {
       width: '400px',
@@ -99,7 +122,7 @@ export class ClientsComponent implements OnInit {
     } else {
       console.warn('Edit canceled or incomplete');
     }
-  }
+  }   
 
   /**
    * Eliminar un cliente de la lista.
