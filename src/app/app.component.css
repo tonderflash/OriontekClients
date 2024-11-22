@@ -13,3 +13,9 @@
   .add-client-btn:hover {
     background-color: #125699;
   }
+
+  .custom-logo {
+    display: block;
+    margin: 0 auto;
+
+  }
