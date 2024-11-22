@@ -1,0 +1,46 @@
+<div class="container">
+    <h2>Clients</h2>
+    <button class="add-client-btn" (click)="addRandomClient()">Add Random Client</button>
+
+    <table class="clients-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Addresses</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients">
+          <td>{{ client.name }}</td>
+          <td>{{ client.email }}</td>
+          <td>{{ client.phone }}</td>
+          <td>
+            <div class="address-container" (click)="openAddressModal(client)">
+              <ul class="address-list">
+                <li *ngFor="let address of client.addresses" class="address-item">
+                  <span class="address-label">Address:</span>
+                  <span class="address-text">
+                    {{ address.street }}, {{ address.city }}, {{ address.state }}
+                    {{ address.zip }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </td>
+          <td>
+            <div class="actions">
+              <select class="action-selector" (change)="onActionSelect($event, client)">
+                <option value="" disabled selected>Choose Action</option>
+                <option value="addAddress">Add Address</option>
+                <option value="editClient">Edit Client</option>
+                <option value="deleteClient">Delete Client</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

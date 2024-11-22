@@ -1,0 +1,30 @@
+.address-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px; /* Scroll interno si hay muchas direcciones */
+    overflow-y: auto;
+  }
+  
+  .address-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .address-item:hover {
+    background-color: #eaeaea;
+  }
+  
+  .address-label {
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #555;
+  }
+  
+  .address-text {
+    font-size: 0.9rem;
+    color: #333;
+  }
